@@ -8,7 +8,8 @@ namespace EntityFrameworkExample
         static void Main(string[] args)
         {
             //Query();
-            Insert();
+            //Insert();
+            Update();
         }
 
         private static void Query()
@@ -29,6 +30,16 @@ namespace EntityFrameworkExample
             using (var db = new MyContext())
             {
                 db.Categories.Add(new Category { Id = 10, Name = "From EF" });
+                db.SaveChanges();
+            }
+        }
+
+        private static void Update()
+        {
+            using (var db = new MyContext())
+            {
+                var cat = db.Categories.Find(10);
+                cat.Name = "Peter";
                 db.SaveChanges();
             }
         }
