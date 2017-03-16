@@ -9,7 +9,8 @@ namespace EntityFrameworkExample
         {
             //Query();
             //Insert();
-            Update();
+            //Update();
+            UpdateDetached();
         }
 
         private static void Query()
@@ -40,6 +41,16 @@ namespace EntityFrameworkExample
             {
                 var cat = db.Categories.Find(10);
                 cat.Name = "Peter";
+                db.SaveChanges();
+            }
+        }
+
+        private static void UpdateDetached()
+        {
+            using (var db = new MyContext())
+            {
+                var cat = new Category { Id = 10, Name = "Testing", Description = "Detached object" };
+                db.Categories.Update(cat);
                 db.SaveChanges();
             }
         }
